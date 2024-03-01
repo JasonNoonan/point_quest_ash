@@ -1,5 +1,6 @@
 defmodule PointQuestAshWeb.Router do
   use PointQuestAshWeb, :router
+  use AshAuthentication.Phoenix.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -8,16 +9,28 @@ defmodule PointQuestAshWeb.Router do
     plug :put_root_layout, html: {PointQuestAshWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :load_from_session
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :load_from_bearer
   end
 
   scope "/", PointQuestAshWeb do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    sign_in_route(register_path: "/register", reset_path: "/reset")
+    sign_out_route AuthController
+    auth_routes_for PointQuestAsh.Accounts.User, to: AuthController
+    reset_route []
+
+    ash_authentication_live_session :authentication_required,
+      on_mount: {PointQuestAshWeb.Live.UserAuth, :live_user_required} do
+      live "/protected_route", Live.ProtectedRoute
+    end
   end
 
   # Other scopes may use custom stacks.

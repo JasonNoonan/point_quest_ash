@@ -9,7 +9,8 @@ import Config
 
 config :point_quest_ash,
   ecto_repos: [PointQuestAsh.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime],
+  ash_apis: [PointQuestAsh.Accounts]
 
 # Configures the endpoint
 config :point_quest_ash, PointQuestAshWeb.Endpoint,

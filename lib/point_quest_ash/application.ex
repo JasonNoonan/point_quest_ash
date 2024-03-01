@@ -12,6 +12,7 @@ defmodule PointQuestAsh.Application do
       PointQuestAsh.Repo,
       {DNSCluster, query: Application.get_env(:point_quest_ash, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: PointQuestAsh.PubSub},
+      {AshAuthentication.Supervisor, otp_app: :point_quest_ash},
       # Start the Finch HTTP client for sending emails
       {Finch, name: PointQuestAsh.Finch},
       # Start a worker by calling: PointQuestAsh.Worker.start_link(arg)

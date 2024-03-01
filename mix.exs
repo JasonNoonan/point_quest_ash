@@ -33,6 +33,11 @@ defmodule PointQuestAsh.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.7.11"},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:ash, "~> 2.19"},
+      {:ash_authentication, "~> 3.12"},
+      {:ash_authentication_phoenix, "~> 1.9"},
+      {:ash_postgres, "~> 1.5"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
